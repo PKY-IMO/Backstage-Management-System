@@ -6,6 +6,17 @@
 <script>
 export default {
   name: "login",
+  mounted() {
+    this.$request({
+      method: 'get',
+      url: '/login',
+      data: {
+        name: 'jack'
+      }
+    }).then((res) => {
+      console.log(res)
+    })
+  },
   methods: {
     goHome () {
       this.$router.push('/welcome')
