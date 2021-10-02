@@ -1,0 +1,11 @@
+[2021-10-02T20:16:34.361] [ERROR] error - log output
+[2021-10-02T20:18:28.898] [ERROR] error - ReferenceError: ctx is not defined
+    at E:\Backstage-Management-System\manager-server\app.js:41:3
+    at dispatch (E:\Backstage-Management-System\manager-server\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at E:\Backstage-Management-System\manager-server\app.js:35:9
+    at dispatch (E:\Backstage-Management-System\manager-server\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at views (E:\Backstage-Management-System\manager-server\node_modules\koa-views\src\index.js:91:12)
+    at dispatch (E:\Backstage-Management-System\manager-server\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at serve (E:\Backstage-Management-System\manager-server\node_modules\koa-static\index.js:53:15)
+    at async logger (E:\Backstage-Management-System\manager-server\node_modules\koa-logger\index.js:67:7)
+    at async bodyParser (E:\Backstage-Management-System\manager-server\node_modules\koa-bodyparser\index.js:95:5)

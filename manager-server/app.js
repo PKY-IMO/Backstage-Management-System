@@ -5,13 +5,14 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-const log4js = require('log4js')
+// const log4js = require('log4js')
 
-var log = log4js.getLogger();
+// var log = log4js.getLogger();
 
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const log4js = require('./utils/log4j')
 
 // error handler
 onerror(app)
@@ -32,8 +33,12 @@ app.use(views(__dirname + '/views', {
 app.use(async (ctx, next) => {
   const start = new Date()
   await next()
-  log.level = "debug";
-  log.debug("Some debug messages");
+  log4js.info('hihi')
+  log4js.error('log output')
+})
+
+app.use(()=>{
+  ctx.body='11'
 })
 
 // routes
@@ -42,6 +47,7 @@ app.use(users.routes(), users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
+  log4js.error(`${err.stack}`)
   console.error('server error', err, ctx)
 });
 
