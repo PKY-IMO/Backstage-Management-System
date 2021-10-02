@@ -1,6 +1,7 @@
   
 .DS_Store
 /manager-system/node_modules
+/manager-server/node_modules
 /dist
 
 
