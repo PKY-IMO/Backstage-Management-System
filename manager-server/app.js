@@ -5,17 +5,18 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-// const log4js = require('log4js')
+// 调用方法
+const router = require('koa-router')()
 
-// var log = log4js.getLogger();
 
-
-const index = require('./routes/index')
 const users = require('./routes/users')
 const log4js = require('./utils/log4j')
 
 // error handler
 onerror(app)
+
+// 连接数据库
+require('./config/db')
 
 // middlewares
 app.use(bodyparser({
@@ -31,19 +32,17 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
-  const start = new Date()
   await next()
-  log4js.info('hihi')
-  log4js.error('log output')
+  log4js.info(`params:${ctx.request.query || ctx.request.body}`)
 })
 
-app.use(()=>{
-  ctx.body='11'
-})
+router.prefix('/api')
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+router.use(users.routes(), users.allowedMethods())
+
+// app 加载全局路由
+app.use(router.routes(), router.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
