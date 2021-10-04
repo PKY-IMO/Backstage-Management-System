@@ -33,7 +33,7 @@ app.use(views(__dirname + '/views', {
 // logger
 app.use(async (ctx, next) => {
   await next()
-  log4js.info(`params:${ctx.request.query || ctx.request.body}`)
+  //log4js.info(`params:${ctx.request.query || ctx.request.body}`)
 })
 
 router.prefix('/api')

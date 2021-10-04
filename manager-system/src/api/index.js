@@ -4,12 +4,25 @@
 
 import request from './../utils/request'
 export default {
-  login(params) {
+  login (params) {
     return request({
       url: '/users/login',
       method: 'post',
-      data: params,
-      mock: true
+      data: params
+    })
+  },
+  noticeCount (params) {
+    return request({
+      url:'/leave/count',
+      method: 'get',
+      data: {}
+    })
+  },
+  menuList (params) {
+    return request({
+      url:'/menu/list',
+      method: 'get',
+      data: {}
     })
   }
 }
