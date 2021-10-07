@@ -44,9 +44,7 @@
         </div>
       </div>
       <div class="wrapper">
-        <div class="main-page">
         <router-view></router-view>
-        </div>
       </div>
     </div>
   </div>
@@ -116,6 +114,7 @@ export default {
     overflow-x: hidden;
     overflow-y: auto;
     transition: width 0.5s;
+    z-index: 9;
     .logo {
       height: 50px;
       display: flex;
@@ -170,11 +169,6 @@ export default {
       background: #eef0f3;
       padding: 20px;
       height: calc(100vh - 50px);
-      .main-page {
-        height: 100%;
-        width: 100%;
-        background: #fff;
-      }
     }
     &.fold {
       margin-left: 64px;

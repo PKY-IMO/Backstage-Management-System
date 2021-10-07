@@ -5,6 +5,7 @@ import axios from 'axios'
 import config from './../config'
 import { ElMessage } from 'element-plus'
 import router from './../router'
+import storage from './storage'
 
 const TOKEN_INVALID = 'Token认证失败,请重新登陆'
 const NETWORK_ERROR = '网络请求异常，请稍后尝试'
@@ -19,7 +20,8 @@ const service = axios.create({
 service.interceptors.request.use((req) => {
   // TO-DO
   const headers = req.headers
-  if (!headers.Authorization) headers.Authorization = 'bearjack'
+  const { token } = storage.getItem('userInfo')
+  if (!headers.Authorization) headers.Authorization = 'Bearer ' + token
   return req
 })
 
@@ -32,7 +34,7 @@ service.interceptors.response.use((res) => {
     ElMessage.error(TOKEN_INVALID)
     setTimeout(() => {
       router.push('/login')
-    }, 15000)
+    }, 1500)
     return Promise.reject(TOKEN_INVALID)
   } else {
     ElMessage.error(msg || NETWORK_ERROR)
@@ -55,7 +57,7 @@ function request (options) {
   if (config.env === 'prod') {
     service.defaults.baseURL = config.baseApi
   } else {
-    service.defaults.baseURL = config.mock ? config.mockApi : config.baseApi
+    service.defaults.baseURL = options.mock ? config.mockApi : config.baseApi
   }
   
   return service(options)

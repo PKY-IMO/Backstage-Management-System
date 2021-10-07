@@ -69,6 +69,7 @@ a{
   background: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
+  transition: all 0.5s;
   .action {
     border-radius: 5px 5px 0px 0px;
     background: #ffffff;
@@ -76,7 +77,10 @@ a{
     border-bottom: 1px solid #ece8e8;
   }
   .pagination {
-    text-align: right;
+    text-align: center;
     padding: 10px;
   }
+}
+.el-table {
+  transition: all 0.5s;
 }

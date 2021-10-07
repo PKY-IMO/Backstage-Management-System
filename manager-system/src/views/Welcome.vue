@@ -26,6 +26,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
     .content {
       position: relative;
       bottom: 40px;
