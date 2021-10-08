@@ -113,7 +113,7 @@ export default {
     const { proxy } = getCurrentInstance()
     // 查询用户
     const user = reactive({
-      state: 0
+      state: 1
     })
     // 表单标题
     const columns = ref([
@@ -267,9 +267,9 @@ export default {
         userIds: delUserIds.value
       }
       if (delUserIds.value.length <= 0) return
-      const { nModified } = await proxy.$api.deleteUser(params)
-      if (nModified >= 1) {
-        proxy.$message.success(`成功删除${nModified}个用户`)
+      const { modifiedCount } = await proxy.$api.deleteUser(params)
+      if (modifiedCount >= 1) {
+        proxy.$message.success(`成功删除${modifiedCount}个用户`)
         getUserList()
       } else {
         proxy.$message.error(`删除失败`)
@@ -285,9 +285,9 @@ export default {
       const params = {
         userIds: delUserIds.value
       }
-      const { nModified } = await proxy.$api.deleteUser(params)
-      if (nModified >= 1) {
-        proxy.$message.success(`成功删除${nModified}个用户`)
+      const { modifiedCount } = await proxy.$api.deleteUser(params)
+      if (modifiedCount >= 1) {
+        proxy.$message.success(`成功删除${modifiedCount}个用户`)
         getUserList()
       } else {
         proxy.$message.error(`删除失败`)
@@ -319,17 +319,17 @@ export default {
       dialogTableVisible.value = false
     }
 
-    // 提交增加用户
+    // 表单
     const handleSubmit = () => {
       proxy.$refs.newUserForm.validate(async (valid) => {
         if (valid) {
-          action.value = 'add'
           let params = toRaw(newUser)
           params.action = action.value
           let res = await proxy.$api.operateUser(params)
+          console.log(res)
           if (res) {
             dialogTableVisible.value = false
-            proxy.$message.success("用户创建成功")
+            proxy.$message.success(`用户${action.value === 'add' ? '添加' : '编辑'}成功`)
             handleReset("newUserForm")
             getUserList()
           }

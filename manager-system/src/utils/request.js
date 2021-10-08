@@ -20,7 +20,7 @@ const service = axios.create({
 service.interceptors.request.use((req) => {
   // TO-DO
   const headers = req.headers
-  const { token } = storage.getItem('userInfo')
+  const { token = "" } = storage.getItem('userInfo') || {}
   if (!headers.Authorization) headers.Authorization = 'Bearer ' + token
   return req
 })
@@ -30,7 +30,7 @@ service.interceptors.response.use((res) => {
   const { code, data, msg} = res.data
   if (code === 200) {
     return data
-  } else if (code === 40001) {
+  } else if (code === 50001) {
     ElMessage.error(TOKEN_INVALID)
     setTimeout(() => {
       router.push('/login')
@@ -38,7 +38,7 @@ service.interceptors.response.use((res) => {
     return Promise.reject(TOKEN_INVALID)
   } else {
     ElMessage.error(msg || NETWORK_ERROR)
-    return Promise.reject(TOKEN_INVALID)
+    return Promise.reject(msg || NETWORK_ERROR)
   }
 })
 

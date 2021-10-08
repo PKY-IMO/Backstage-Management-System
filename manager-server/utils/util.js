@@ -18,6 +18,7 @@
      * @param {number} pageNum 
      * @param {number} pageSize 
      */
+  CODE,
   pager({ pageNum = 1, pageSize = 10 }) {
     pageNum *= 1;
     pageSize *= 1;

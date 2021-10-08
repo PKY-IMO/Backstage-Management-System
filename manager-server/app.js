@@ -12,6 +12,7 @@ const router = require('koa-router')()
 
 const users = require('./routes/users')
 const log4js = require('./utils/log4j')
+const util = require('./utils/util')
 
 // error handler
 onerror(app)
