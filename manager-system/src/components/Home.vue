@@ -92,7 +92,7 @@ export default {
     },
     async getMenuList () {
       try {
-        const list = await this.$api.menuList()
+        const list = await this.$api.getMenuList({menuState:1})
         this.userMenu = list
       } catch (error) {
         console.error(error)

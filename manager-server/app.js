@@ -11,6 +11,7 @@ const router = require('koa-router')()
 
 
 const users = require('./routes/users')
+const menus = require('./routes/menus')
 const log4js = require('./utils/log4j')
 const util = require('./utils/util')
 
@@ -54,6 +55,7 @@ router.prefix('/api')
 
 // routes
 router.use(users.routes(), users.allowedMethods())
+router.use(menus.routes(), menus.allowedMethods())
 
 // app 加载全局路由
 app.use(router.routes(), router.allowedMethods())
