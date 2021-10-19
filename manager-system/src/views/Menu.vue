@@ -206,7 +206,7 @@ export default {
     handleQuery() {
       this.getMenuList()
     },
-    handelReset(form) {
+    handleReset(form) {
       this.$refs[form].resetFields()
     },
     handleDialog() {
@@ -216,7 +216,7 @@ export default {
     },
     handleClose() {
       this.dialogTableVisible = false
-      this.handelReset('dialogForm')
+      this.handleReset('dialogForm')
     },
     handleAdd(row, column, value) {
       this.title = '新增子菜单'
@@ -245,7 +245,7 @@ export default {
           await this.$api.menuSubmit(parmas)
           this.dialogTableVisible = false
           this.$message.success('操作成功')
-          this.handelReset('dialogForm')
+          this.handleReset('dialogForm')
           this.getMenuList()
         }
       })
