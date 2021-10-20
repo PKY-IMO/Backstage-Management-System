@@ -6,14 +6,14 @@
           <el-input v-model="queryForm.roleName" placeholder="请输入角色名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery">查询</el-button>
+          <el-button type="primary" @click="handleQuery" v-has="'role-query'">查询</el-button>
           <el-button @click="handleReset('form')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="base-table">
       <div class="action">
-        <el-button type="primary" @click="handleCreate">创建</el-button>
+        <el-button type="primary" @click="handleCreate" v-has="'role-create'">创建</el-button>
       </div>
       <el-table :data="roleList">
         <el-table-column 
@@ -26,9 +26,9 @@
         ></el-table-column>
         <el-table-column label="操作" width="260">
           <template #default="scope">
-            <el-button size="mini" @click="handleEdit(scope.row, scope.column, value)">编辑</el-button>
-            <el-button size="mini" @click="handleOpenPermission(scope.row)">设置权限</el-button>
-            <el-button type="danger" size="mini" @click="handleDel(scope.row._id)">删除</el-button>
+            <el-button size="mini" @click="handleEdit(scope.row, scope.column, value)" v-has="'role-edit'">编辑</el-button>
+            <el-button size="mini" @click="handleOpenPermission(scope.row)" v-has="'role-permission'">设置权限</el-button>
+            <el-button type="danger" size="mini" @click="handleDel(scope.row._id)" v-has="'role-delete'">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
