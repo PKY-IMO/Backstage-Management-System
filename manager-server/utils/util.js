@@ -2,6 +2,7 @@
  * 通用工具函数
  */
  const log4js = require('./log4j')
+ const jwt = require('jsonwebtoken')
 
  const CODE = {
      SUCCESS: 200,
@@ -63,4 +64,11 @@
     })
     return list;
   },
+  decoded(authorization) {
+    if (authorization) {
+      let token = authorization.split(' ')[1]
+      return jwt.verify(token, 'imooc')
+    }
+    return ''
+  }
  }

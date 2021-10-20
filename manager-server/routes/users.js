@@ -3,11 +3,12 @@
  */
 const router = require('koa-router')()
 const User = require('./../models/userSchema')
+const Menu = require('./../models/menuSchema')
+const Role = require('./../models/roleSchema')
 const Counter = require('./../models/counterSchema')
 const util = require('./../utils/util')
 const jwt = require('jsonwebtoken')
 const md5 = require('md5')
-const cons = require('consolidate')
 
 router.prefix('/users')
 
@@ -22,7 +23,7 @@ router.post('/login', async function (ctx, next) {
      */
     const res = await User.findOne({
       userName,
-      userPwd
+      userPwd: md5(userPwd)
     }, 'userId userName userEmail state role deptId roleList')
     if (res) {
       /**
@@ -140,5 +141,34 @@ router.post('/operate', async (ctx) => {
     }
   }
 })
+
+// 获取用户对应的权限菜单
+router.get("/getPermissionList", async(ctx) => {
+  let authorization = ctx.request.headers.authorization
+  let { data } = util.decoded(authorization)
+  let menuList = await getMenuList(data.role, data.roleList)
+  ctx.body = util.success(menuList)
+})
+
+async function getMenuList(userRole, roleKeys) {
+  let rootList = []
+  if (userRole == 0) {
+    rootList = await Menu.find({}) || []
+  }else {
+    // 根据用户拥有的角色获取权限列表
+    // 1. 用户角色
+    let roleList = await Role.find({ _id: { $in: roleKeys } })
+    
+    let permissionList = []
+    roleList.map(role => {
+      let { checkedKeys, halfCheckedKeys } = role.permissionList    
+      permissionList = permissionList.concat([...checkedKeys, ...halfCheckedKeys])
+    })
+    permissionList = [...new Set(permissionList)]
+    console.log(permissionList)
+    rootList = await Menu.find({ _id: { $in: permissionList } })
+  }
+  return util.getTreeMenu(rootList, null, [])
+}
 
 module.exports = router
