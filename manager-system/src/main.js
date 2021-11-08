@@ -7,6 +7,8 @@ import request from './utils/request'
 import storage from './utils/storage'
 import api from './api'
 import store from './store'
+// import QueryForm from './../packages/QueryForm/index.js'
+import MyUI from './../packages'
 
 console.log('环境变量', import.meta.env)
 
@@ -33,4 +35,8 @@ app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
 app.config.globalProperties.$api = api
 
-app.use(router).use(store).use(ElementPlus, { size: 'small' }).mount('#app')
+app.use(router)
+    .use(store)
+    .use(ElementPlus, { size: 'small' })
+    .use(MyUI)
+    .mount('#app')
